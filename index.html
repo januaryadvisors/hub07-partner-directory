@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex,nofollow">
+  <title>HUB 07 Partner Directory</title>
+  <link rel="icon" type="image/png" href="assets/hub07-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js" integrity="sha512-dfX5uYVXzyU8+KHqj8bjo7UkOdg18PaOtpa48djpNbZHwExddghZ+ZmzWT06R5v6NSk3ZUfsH6FNEDepLx9hPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <style>
+    /* ─── Tokens ─────────────────────────────────────────────────────── */
+    :root {
+      --slate:        #30323F;
+      --off-white:    #F1F2E7;
+      --white:        #FFFFFF;
+      --orange:       #D36200;
+      --dark-orange:  #BC580E;
+      --green:        #757B2E;
+      --dark-green:   #373A12;
+      --magenta:      #9B0074;
+      --dark-magenta: #4E0B32;
+      --teal:         #18ABBB;
+      --dark-teal:    #008088;
+      --muted:        #767884;
+      --border:       #DDDECF;
+      --radius:       10px;
+    }
+
+    /* ─── Focus area colors (WCAG AA — dark variants with white text) ── */
+    .fa-mixed-income-housing   { background: var(--dark-green);   color:#fff; }
+    .fa-cradle-to-career       { background: var(--dark-magenta); color:#fff; }
+    .fa-community-wellbeing    { background: var(--dark-teal);    color:#fff; }
+    .fa-economic-vitality      { background: var(--dark-orange);  color:#fff; }
+
+    /* ─── Reset ──────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; }
+    body {
+      font-family:'Kantumruy Pro','Segoe UI',system-ui,sans-serif;
+      font-size:16px;
+      line-height:1.6;
+      color:var(--slate);
+      background:var(--off-white);
+    }
+    a { color:var(--orange); text-decoration:none; }
+    a:hover { text-decoration:underline; }
+    button { font-family:inherit; cursor:pointer; }
+
+    /* ─── Header ─────────────────────────────────────────────────────── */
+    .site-header {
+      background:var(--white);
+      border-bottom:2px solid var(--border);
+      padding:8px 16px;
+    }
+    .header-inner {
+      max-width:1040px;
+      margin:0 auto;
+      display:flex;
+      align-items:center;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+    .site-header img.logo { height:80px; width:auto; }
+    .header-text h1 { font-size:1.3rem; font-weight:700; line-height:1.2; }
+    .header-text p  { font-size:0.85rem; color:var(--muted); margin-top:2px; }
+
+    /* ─── Controls ───────────────────────────────────────────────────── */
+    .controls-bar {
+      background:var(--white);
+      border-bottom:1px solid var(--border);
+      padding:12px 16px;
+      position:sticky;
+      top:0;
+      z-index:100;
+      box-shadow:0 2px 8px rgba(48,50,63,.08);
+    }
+    .controls-inner {
+      max-width:1040px;
+      margin:0 auto;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+    }
+    .search-wrap { position:relative; flex:1 1 200px; }
+    .search-wrap input {
+      width:100%;
+      padding:8px 12px 8px 34px;
+      border:1.5px solid var(--border);
+      border-radius:var(--radius);
+      font-size:0.92rem;
+      font-family:inherit;
+      color:var(--slate);
+      background:var(--off-white);
+    }
+    .search-wrap input:focus { outline:none; border-color:var(--orange); }
+    .search-icon { position:absolute; left:9px; top:50%; transform:translateY(-50%); color:var(--muted); pointer-events:none; }
+    .filter-select {
+      padding:8px 30px 8px 12px;
+      border:1.5px solid var(--border);
+      border-radius:var(--radius);
+      font-size:0.92rem;
+      font-family:inherit;
+      color:var(--slate);
+      background:var(--off-white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2330323F' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 8px center;
+      appearance:none;
+    }
+    .filter-select:focus { outline:none; border-color:var(--orange); }
+    .result-count { font-size:0.85rem; color:var(--muted); white-space:nowrap; }
+    .btn-clear {
+      padding:8px 14px;
+      background:none;
+      border:1.5px solid var(--border);
+      border-radius:var(--radius);
+      font-size:0.85rem;
+      color:var(--muted);
+    }
+    .btn-clear:hover { border-color:var(--orange); color:var(--orange); }
+    .btn-bulk {
+      padding:8px 16px;
+      background:var(--orange);
+      color:#fff;
+      border:none;
+      border-radius:var(--radius);
+      font-size:0.88rem;
+      font-weight:600;
+      white-space:nowrap;
+    }
+    .btn-bulk:hover { background:var(--dark-orange); }
+
+    /* ─── Partner grid ───────────────────────────────────────────────── */
+    .main { max-width:1040px; margin:0 auto; padding:28px 16px 64px; }
+    .partner-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+      gap:16px;
+    }
+    .partner-tile {
+      background:var(--white);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      overflow:hidden;
+      cursor:pointer;
+      transition:box-shadow .18s, transform .18s;
+      text-align:center;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+    }
+    .partner-tile:hover {
+      box-shadow:0 4px 18px rgba(48,50,63,.14);
+      transform:translateY(-2px);
+    }
+    .partner-tile:focus-visible {
+      outline:2px solid var(--orange);
+      outline-offset:2px;
+    }
+    .tile-logo {
+      width:100%;
+      aspect-ratio:4/3;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:var(--white);
+      overflow:hidden;
+    }
+    .tile-logo img { width:100%; height:100%; object-fit:contain; padding:10px; }
+    .tile-initials {
+      width:72px;
+      height:72px;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:1.5rem;
+      font-weight:700;
+      color:#fff;
+      flex-shrink:0;
+    }
+    .tile-name {
+      padding:10px 12px 14px;
+      font-size:0.88rem;
+      font-weight:600;
+      color:var(--slate);
+      line-height:1.3;
+    }
+    .tile-coming-soon {
+      font-size:0.7rem;
+      font-weight:600;
+      text-transform:uppercase;
+      letter-spacing:.05em;
+      color:var(--muted);
+      margin-top:2px;
+    }
+
+    /* ─── Partner modal ───────────────────────────────────────────────── */
+    .modal-overlay {
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(48,50,63,.32);
+      backdrop-filter:blur(2px);
+      -webkit-backdrop-filter:blur(2px);
+      z-index:400;
+      align-items:flex-start;
+      justify-content:center;
+      padding:24px 12px;
+      overflow-y:auto;
+    }
+    .modal-overlay.open { display:flex; }
+
+    .partner-modal {
+      background:var(--white);
+      border-radius:var(--radius);
+      max-width:660px;
+      width:100%;
+      margin:auto;
+      display:flex;
+      flex-direction:column;
+      box-shadow:0 8px 40px rgba(48,50,63,.22);
+      position:relative;
+    }
+    .modal-close {
+      position:absolute;
+      top:14px;
+      right:14px;
+      background:none;
+      border:none;
+      color:var(--muted);
+      font-size:1.3rem;
+      line-height:1;
+      padding:4px 8px;
+      border-radius:4px;
+    }
+    .modal-close:hover { color:var(--slate); background:var(--off-white); }
+
+    /* Modal top banner — focus area color strip */
+    .modal-banner {
+      height:6px;
+      border-radius:var(--radius) var(--radius) 0 0;
+    }
+    .modal-head {
+      padding:24px 28px 18px;
+      border-bottom:1px solid var(--border);
+    }
+    .modal-org-name {
+      font-size:1.35rem;
+      font-weight:700;
+      line-height:1.2;
+      padding-right:32px;
+    }
+    .modal-parent-org {
+      font-size:0.9rem;
+      color:var(--muted);
+      font-style:italic;
+      margin-top:4px;
+    }
+    .modal-tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; }
+    .modal-tags-bottom { margin-top:6px; }
+    .modal-tag {
+      font-size:0.72rem;
+      font-weight:600;
+      text-transform:uppercase;
+      letter-spacing:.05em;
+      padding:3px 9px;
+      border-radius:4px;
+    }
+    .modal-tag-coming-soon {
+      background:var(--off-white);
+      color:var(--muted);
+      border:1px solid var(--border);
+    }
+
+    /* Quick facts row */
+    .modal-quick {
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px 28px;
+      padding:14px 28px;
+      background:var(--off-white);
+      border-bottom:1px solid var(--border);
+      font-size:0.9rem;
+    }
+    .modal-quick-item { display:flex; align-items:center; gap:6px; }
+    .modal-quick-item svg { color:var(--muted); flex-shrink:0; }
+
+    /* Modal body */
+    .modal-body { padding:20px 28px 8px; }
+
+    /* Section headers */
+    .section-head {
+      font-size:0.8rem;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:.07em;
+      color:var(--orange);
+      margin-bottom:6px;
+      margin-top:20px;
+      padding-bottom:4px;
+      border-bottom:1px solid var(--border);
+    }
+    .section-head:first-child { margin-top:0; }
+    .section-body { font-size:0.95rem; line-height:1.65; }
+    .section-body a { color:var(--orange); }
+    .preline { white-space:pre-line; }
+    .dept-inline { font-size:0.8rem; font-weight:400; color:var(--muted); }
+
+    /* Programs */
+    .programs-toggle-btn {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      width:100%;
+      background:var(--off-white);
+      border:1px solid var(--border);
+      border-radius:6px;
+      padding:8px 12px;
+      font-size:0.8rem;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:.07em;
+      color:var(--orange);
+      margin-top:20px;
+      cursor:pointer;
+    }
+    .programs-toggle-btn:hover { background:var(--border); }
+    .programs-toggle-btn .chevron-icon { transition:transform .22s; }
+    .programs-toggle-btn[aria-expanded="true"] .chevron-icon { transform:rotate(180deg); }
+    .programs-list-wrap {
+      overflow:hidden;
+      transition:height .25s ease;
+    }
+    .program-item { padding:10px 0; border-bottom:1px solid var(--off-white); }
+    .program-item:last-child { border-bottom:none; }
+    .program-name { font-weight:600; font-size:0.95rem; }
+    .badge-seasonal {
+      display:inline-block;
+      font-size:0.67rem;
+      font-weight:600;
+      text-transform:uppercase;
+      letter-spacing:.04em;
+      background:var(--off-white);
+      border:1px solid var(--border);
+      color:var(--muted);
+      padding:1px 6px;
+      border-radius:4px;
+      margin-left:6px;
+      vertical-align:middle;
+    }
+    .program-desc { font-size:0.9rem; color:var(--slate); margin-top:2px; }
+    .program-category-head {
+      font-size:0.75rem;
+      font-weight:600;
+      text-transform:uppercase;
+      letter-spacing:.05em;
+      color:var(--muted);
+      margin-top:14px;
+      margin-bottom:4px;
+    }
+
+    /* Links */
+    .links-list { display:flex; flex-direction:column; gap:8px; margin-top:4px; }
+    .link-item { display:flex; align-items:center; gap:8px; font-size:0.92rem; }
+    .link-item svg { flex-shrink:0; color:var(--slate); }
+    .link-item a { color:var(--orange); }
+
+    /* Contacts */
+    .contacts-group {
+      border-radius:8px;
+      padding:12px 14px;
+      margin-top:10px;
+    }
+    .contacts-group.org-contacts   { background:rgba(0,128,136,.08);  }
+    .contacts-group-label {
+      font-size:0.75rem;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:.06em;
+      color:var(--muted);
+      margin-bottom:8px;
+    }
+    .contact-item { font-size:0.9rem; padding:6px 0; border-bottom:1px solid rgba(48,50,63,.07); }
+    .contact-item:last-child { border-bottom:none; }
+    .contact-name { font-weight:600; }
+    .contact-title { color:var(--muted); font-size:0.87rem; }
+    .contact-detail { font-size:0.88rem; margin-top:2px; }
+    .contact-detail a { color:var(--orange); }
+
+    /* Remind / footer */
+    .modal-footer {
+      padding:16px 28px 24px;
+      display:flex;
+      align-items:center;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+    .btn-remind {
+      padding:9px 18px;
+      background:var(--orange);
+      color:#fff;
+      border:none;
+      border-radius:var(--radius);
+      font-size:0.9rem;
+      font-weight:600;
+      font-family:inherit;
+    }
+    .btn-remind:hover:not(:disabled) { background:var(--dark-orange); }
+    .btn-remind:disabled {
+      background:var(--border);
+      color:var(--muted);
+      cursor:not-allowed;
+    }
+    .last-reminder, .last-verified { font-size:0.82rem; color:var(--muted); }
+
+    /* ─── Secondary modals (missing contacts, mailto fallback) ─────── */
+    .modal-sm {
+      background:var(--white);
+      border-radius:var(--radius);
+      max-width:500px;
+      width:100%;
+      margin:auto;
+      box-shadow:0 8px 40px rgba(48,50,63,.22);
+    }
+    .modal-sm-head { padding:20px 20px 14px; border-bottom:1px solid var(--border); }
+    .modal-sm-head h2 { font-size:1rem; font-weight:700; }
+    .modal-sm-head p  { font-size:0.88rem; color:var(--muted); margin-top:4px; }
+    .modal-sm-body { padding:14px 20px; max-height:240px; overflow-y:auto; }
+    .modal-missing-list { list-style:none; font-size:0.9rem; }
+    .modal-missing-list li { padding:3px 0; }
+    .modal-sm-foot { padding:14px 20px; border-top:1px solid var(--border); display:flex; gap:10px; justify-content:flex-end; }
+    .btn-cancel { padding:8px 16px; background:none; border:1.5px solid var(--border); border-radius:var(--radius); font-size:0.9rem; font-family:inherit; color:var(--muted); cursor:pointer; }
+    .btn-cancel:hover { border-color:var(--slate); color:var(--slate); }
+    .btn-continue { padding:8px 16px; background:var(--orange); border:none; border-radius:var(--radius); font-size:0.9rem; font-family:inherit; color:#fff; font-weight:600; cursor:pointer; }
+    .btn-continue:hover { background:var(--dark-orange); }
+
+    .mailto-field { margin-bottom:12px; }
+    .mailto-field label { font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); display:block; margin-bottom:4px; }
+    .mailto-value { width:100%; padding:7px 10px; border:1px solid var(--border); border-radius:4px; font-size:0.85rem; font-family:inherit; background:var(--off-white); max-height:80px; overflow-y:auto; word-break:break-all; }
+    .mailto-field textarea { width:100%; padding:7px 10px; border:1px solid var(--border); border-radius:4px; font-size:0.85rem; font-family:inherit; background:var(--off-white); resize:vertical; }
+    .btn-copy { padding:4px 10px; background:none; border:1.5px solid var(--border); border-radius:4px; font-size:0.8rem; font-family:inherit; color:var(--orange); cursor:pointer; margin-top:4px; }
+    .btn-copy:hover { background:var(--off-white); }
+
+    /* ─── States ─────────────────────────────────────────────────────── */
+    .state-message { text-align:center; padding:48px 16px; color:var(--muted); }
+    .no-results { text-align:center; padding:32px; color:var(--muted); font-style:italic; }
+
+    /* ─── Print ──────────────────────────────────────────────────────── */
+    @media print {
+      .controls-bar, .modal-overlay, .btn-remind, .btn-bulk { display:none !important; }
+      .partner-modal { box-shadow:none; }
+    }
+
+    /* ─── Responsive ─────────────────────────────────────────────────── */
+    @media (max-width:600px) {
+      .partner-grid { grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); }
+      .modal-head, .modal-body, .modal-footer { padding-left:18px; padding-right:18px; }
+      .modal-quick { padding:12px 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── Header ─────────────────────────────────────────────────────────── -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="https://www.hub07.com" target="_blank" rel="noopener" aria-label="HUB 07 website">
+      <img src="assets/hub07-logo-orange.webp" alt="HUB 07" class="logo">
+    </a>
+    <div class="header-text">
+      <h1>Partner Directory</h1>
+      <p>For internal use &mdash; HUB 07 Partners</p>
+    </div>
+  </div>
+</header>
+
+<!-- ─── Controls ─────────────────────────────────────────────────────────── -->
+<div class="controls-bar">
+  <div class="controls-inner">
+    <div class="search-wrap">
+      <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="search" id="search-input" placeholder="Search organizations and programs" aria-label="Search">
+    </div>
+    <select id="filter-focus" class="filter-select" aria-label="Filter by Focus Area">
+      <option value="">All Focus Areas</option>
+    </select>
+    <span id="result-count" class="result-count"></span>
+    <button id="btn-clear" class="btn-clear" type="button">Clear All</button>
+    <button id="btn-bulk-remind" class="btn-bulk" type="button">Request Partner Updates</button>
+  </div>
+</div>
+
+<!-- ─── Partner grid ──────────────────────────────────────────────────────── -->
+<main class="main">
+  <div id="status-msg" class="state-message" role="status" aria-live="polite">
+    <p>Loading partner directory&hellip;</p>
+  </div>
+  <div id="partner-grid" class="partner-grid" role="list" aria-label="Partner organizations"></div>
+</main>
+
+<!-- ─── Partner detail modal ─────────────────────────────────────────────── -->
+<div id="modal-partner" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-partner-name">
+  <div class="partner-modal">
+    <button class="modal-close" id="modal-partner-close" type="button" aria-label="Close">&times;</button>
+    <div class="modal-banner" id="modal-banner"></div>
+    <div class="modal-head">
+      <div class="modal-org-name" id="modal-partner-name"></div>
+      <div class="modal-parent-org" id="modal-parent-org"></div>
+      <div class="modal-tags" id="modal-tags"></div>
+    </div>
+    <div class="modal-quick" id="modal-quick"></div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-footer" id="modal-footer"></div>
+  </div>
+</div>
+
+<!-- ─── Missing contacts modal ───────────────────────────────────────────── -->
+<div id="modal-missing" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-missing-title">
+  <div class="modal-sm">
+    <div class="modal-sm-head">
+      <h2 id="modal-missing-title">Some neighbors have no contact on file</h2>
+      <p id="modal-missing-desc"></p>
+    </div>
+    <div class="modal-sm-body">
+      <ul id="modal-missing-list" class="modal-missing-list"></ul>
+    </div>
+    <div class="modal-sm-foot">
+      <button id="modal-missing-cancel" class="btn-cancel" type="button">Cancel</button>
+      <button id="modal-missing-continue" class="btn-continue" type="button">Send to others</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─── Long mailto fallback modal ───────────────────────────────────────── -->
+<div id="modal-mailto" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-mailto-title">
+  <div class="modal-sm">
+    <div class="modal-sm-head">
+      <h2 id="modal-mailto-title">Copy and paste into your email client</h2>
+      <p>The recipient list is too long to open automatically.</p>
+    </div>
+    <div class="modal-sm-body">
+      <div class="mailto-field">
+        <label>To / BCC</label>
+        <div id="mailto-to" class="mailto-value"></div>
+        <button class="btn-copy" data-copy="mailto-to" type="button">Copy</button>
+      </div>
+      <div class="mailto-field">
+        <label>Subject</label>
+        <div id="mailto-subject" class="mailto-value"></div>
+        <button class="btn-copy" data-copy="mailto-subject" type="button">Copy</button>
+      </div>
+      <div class="mailto-field">
+        <label>Body</label>
+        <textarea id="mailto-body" rows="8" readonly></textarea>
+        <button class="btn-copy" data-copy="mailto-body" type="button">Copy</button>
+      </div>
+    </div>
+    <div class="modal-sm-foot">
+      <button id="modal-mailto-close" class="btn-continue" type="button">Done</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ════════════════════════════════════════════════════════
+   CONFIG — update before deploy
+   ════════════════════════════════════════════════════════ */
+const CONFIG = {
+  SHEET_ID:     '1HSreicH-9X0XtBhWVX0pXm0YuG6wDWfBz0wl4vg8UOY',
+  GIDS: {
+    partners:       '706596858',
+    contacts:       '170601999',
+    programs:       '519949652',
+    emailTemplates: '1965066840',
+    dropdowns:      '253763365',
+    reminderLog:    '305152546',
+  },
+  // TODO: paste Apps Script web app URL here after deploy
+  APPS_SCRIPT_URL: '',
+  // TODO: paste GitHub Pages URL here after deploy
+  DIRECTORY_URL: window.location.href.split('?')[0],
+};
+
+/* ════════════════════════════════════════════════════════
+   FALLBACKS
+   ════════════════════════════════════════════════════════ */
+const FALLBACK_FOCUS_AREAS = [
+  'Mixed-Income Housing',
+  'Cradle-to-Career Education',
+  'Community Wellbeing',
+  'Economic Vitality',
+];
+const FALLBACK_TEMPLATES = {
+  bulkSubject: 'Update your HUB 07 directory listing',
+  bulkBody:    'Hi,\n\nWe want to make sure the HUB 07 Partner Directory is as useful as possible for neighbors and partners. Please take a moment to review your listing and let us know if anything needs to be updated:\n\n{{directoryUrl}}\n\nThank you,\n{{senderName}}\nAmplify GR',
+  individualSubject: 'Update your HUB 07 directory listing',
+  individualBody:    'Hi,\n\nWe want to make sure {{orgName}}\'s listing in the HUB 07 Partner Directory is current. Please review your information and let us know what needs to change:\n\n{{directoryUrl}}\n\nThank you,\n{{senderName}}\nAmplify GR',
+};
+
+/* ════════════════════════════════════════════════════════
+   FOCUS AREA HELPERS
+   ════════════════════════════════════════════════════════ */
+const FA_CLASSES = {
+  'mixed-income housing':      'fa-mixed-income-housing',
+  'cradle-to-career education':'fa-cradle-to-career',
+  'community wellbeing':       'fa-community-wellbeing',
+  'economic vitality':         'fa-economic-vitality',
+};
+const FA_COLORS = {
+  'mixed-income housing':      '#373A12',
+  'cradle-to-career education':'#4E0B32',
+  'community wellbeing':       '#008088',
+  'economic vitality':         '#BC580E',
+};
+
+function faClass(area) {
+  return FA_CLASSES[area.trim().toLowerCase()] || '';
+}
+function faColor(areas) {
+  for (const a of areas) {
+    const c = FA_COLORS[a.trim().toLowerCase()];
+    if (c) return c;
+  }
+  return '#30323F';
+}
+function orgInitials(name) {
+  const words = name.replace(/[()[\]]/g, '').trim().split(/\s+/);
+  if (words.length === 1) return words[0].slice(0, 2).toUpperCase();
+  return (words[0][0] + (words[1][0] || '')).toUpperCase();
+}
+
+/* Partner logo map — keyed by normalized org name fragments */
+const LOGOS = {
+  'positiveimpactforlife':             'assets/logos/positive-impact-for-life.jpg',
+  'refugeeeducationcenter':            'assets/logos/refugee-education-center.webp',
+  'bostonsquareearlylearningcenter':   'assets/logos/boston-square-early-learning-center.webp',
+  'grandrapidsafricanamericanhealth':  'assets/logos/gr-african-american-health-institute.jpg',
+  'graftafricanamericanhealth':        'assets/logos/gr-african-american-health-institute.jpg',
+  'africanamericanhealthinstitute':    'assets/logos/gr-african-american-health-institute.jpg',
+  'youngmoneyfinances':                'assets/logos/young-money-finances.jpg',
+  'corewellhealth':                    'assets/logos/corewell-health.webp',
+  'calvinuniversity':                  'assets/logos/calvin-university.webp',
+  'aglimpseofafrica':                  'assets/logos/a-glimpse-of-africa.png',
+  'glimpseofafrica':                   'assets/logos/a-glimpse-of-africa.png',
+  'amplifygr':                         'assets/logos/amplify-gr.webp',
+};
+/* Scale overrides for logos with lots of built-in whitespace */
+const LOGO_ZOOM = {
+  'youngmoneyfinances': 1.7,
+};
+function getLogoZoom(name) {
+  return LOGO_ZOOM[normalizeKey(name)] || 1;
+}
+function getPartnerLogo(name) {
+  const key = normalizeKey(name);
+  if (LOGOS[key]) return LOGOS[key];
+  /* partial match — check if any map key is contained in the name key */
+  for (const [k, v] of Object.entries(LOGOS)) {
+    if (key.includes(k) || k.includes(key)) return v;
+  }
+  return null;
+}
+
+/* ════════════════════════════════════════════════════════
+   UTILITIES
+   ════════════════════════════════════════════════════════ */
+function normalizeKey(k) {
+  return String(k).trim().toLowerCase().replace(/[^a-z0-9]+/g, '');
+}
+function makeHeaderMap(row) {
+  const m = {};
+  row.forEach((c, i) => { const k = normalizeKey(c); if (k) m[k] = i; });
+  return m;
+}
+function getField(row, hm, field, fallback = '') {
+  const idx = hm[normalizeKey(field)];
+  if (idx === undefined || row[idx] === undefined) return fallback;
+  const v = String(row[idx]).trim();
+  return (v === 'XXX' || v === 'N/A') ? '' : v;
+}
+function findHeaderRow(rows, key) {
+  return rows.findIndex(r => r.some(c => normalizeKey(c) === normalizeKey(key)));
+}
+function escapeHtml(t) {
+  return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function autoLink(text) {
+  return escapeHtml(text).replace(/(https?:\/\/[^\s<>"&]+)/g,
+    '<a href="$1" target="_blank" rel="noopener">$1</a>');
+}
+/* richAutoLink — for multi-line fields: preserves newlines, links URLs, emails, US phones */
+function richAutoLink(text) {
+  const US_PHONE = /(\(?\d{3}\)?[\s.\-]\d{3}[\s.\-]\d{4})/g;
+  const EMAIL    = /([a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,})/g;
+  const URL_RE   = /(https?:\/\/[^\s<>"&]+)/g;
+  let s = escapeHtml(text);
+  s = s.replace(URL_RE,   '<a href="$1" target="_blank" rel="noopener">$1</a>');
+  s = s.replace(EMAIL,    '<a href="mailto:$1">$1</a>');
+  s = s.replace(US_PHONE, '<a href="tel:$1">$1</a>');
+  return s;
+}
+function fillTemplate(tpl, vars) {
+  let out = tpl;
+  for (const [k,v] of Object.entries(vars)) out = out.split(`{{${k}}}`).join(v||'');
+  return out;
+}
+function sheetUrl(gid) {
+  return `https://docs.google.com/spreadsheets/d/${CONFIG.SHEET_ID}/gviz/tq?tqx=out:csv&gid=${gid}`;
+}
+async function fetchCsv(gid) {
+  const res = await fetch(sheetUrl(gid));
+  if (!res.ok) throw new Error(`Sheet fetch failed gid:${gid}`);
+  return Papa.parse(await res.text(), { header:false, skipEmptyLines:true }).data;
+}
+
+/* Social / URL helpers */
+const SOCIAL_PLATFORMS = [
+  { match:'facebook.com',  name:'Facebook',  icon:'facebook'  },
+  { match:'linkedin.com',  name:'LinkedIn',  icon:'linkedin'  },
+  { match:'instagram.com', name:'Instagram', icon:'instagram' },
+  { match:'twitter.com',   name:'Twitter',   icon:'twitter'   },
+  { match:'x.com',         name:'X',         icon:'twitter'   },
+  { match:'youtube.com',   name:'YouTube',   icon:'youtube'   },
+  { match:'tiktok.com',   name:'TikTok',    icon:'tiktok'    },
+];
+function urlInfo(url) {
+  let host = url;
+  try { host = new URL(url).hostname.replace('www.',''); } catch(e) {}
+  const p = SOCIAL_PLATFORMS.find(p => host.includes(p.match));
+  if (p) return { name:p.name, icon:p.icon, url };
+  // Friendly domain name
+  const friendly = host.replace(/\.(com|org|net|edu|gov)$/,'')
+    .split('.').map(s => s.charAt(0).toUpperCase()+s.slice(1)).join(' ');
+  return { name:friendly, icon:'globe', url };
+}
+
+const ICONS = {
+  globe:    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`,
+  facebook: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>`,
+  linkedin: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>`,
+  instagram:`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>`,
+  twitter:  `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>`,
+  youtube:  `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>`,
+  tiktok:   `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>`,
+  phone:    `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.43 2 2 0 0 1 3.6 1.25h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.9-.9a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 16z"/></svg>`,
+  location: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`,
+  clock:    `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
+};
+
+/* ════════════════════════════════════════════════════════
+   PARSERS
+   ════════════════════════════════════════════════════════ */
+function parsePartners(rows) {
+  const hi = findHeaderRow(rows, 'Partner ID'); if (hi===-1) return [];
+  const hm = makeHeaderMap(rows[hi]);
+  return rows.slice(hi+1).map(row => {
+    const g = f => getField(row,hm,f);
+    const id = g('Partner ID'); if (!id) return null;
+    return {
+      partnerID:     id,
+      name:          g('Name'),
+      parentOrg:     g('Parent Organization'),
+      focusAreas:    g('Focus Areas').split(';').map(s=>s.trim()).filter(Boolean),
+      about:         g('About'),
+      whoTheyServe:  g('Who They Serve'),
+      suite:         g('Suite'),
+      hours:         g('Hours'),
+      howToRefer:    g('How to Refer'),
+      phone:         g('Org Phone'),
+      email:         g('Org Email'),
+      website:       g('Website'),
+      socialMedia:   g('Social Media').split(/\s+/).filter(Boolean),
+      locationNotes: g('Location Notes'),
+      status:        g('Status'),
+      lastVerified:  g('Last Verified'),
+      contacts: [], programs: [], recipients: [], lastReminderSent: null,
+    };
+  }).filter(Boolean);
+}
+
+function parseContacts(rows) {
+  const hi = findHeaderRow(rows,'Partner ID'); if (hi===-1) return [];
+  const hm = makeHeaderMap(rows[hi]);
+  return rows.slice(hi+1).map(row => {
+    const g = f => getField(row,hm,f);
+    const pid = g('Partner ID'); if (!pid) return null;
+    return {
+      partnerID:         pid,
+      contactType:       g('Contact Type'),
+      name:              g('Name'),
+      title:             g('Title'),
+      email:             g('Email'),
+      phone:             g('Phone'),
+      receivesReminders: normalizeKey(g('Receives Reminders'))==='yes',
+      notes:             g('Notes'),
+    };
+  }).filter(Boolean);
+}
+
+function parsePrograms(rows) {
+  const hi = findHeaderRow(rows,'Partner ID'); if (hi===-1) return [];
+  const hm = makeHeaderMap(rows[hi]);
+  return rows.slice(hi+1).map(row => {
+    const g = f => getField(row,hm,f);
+    const pid = g('Partner ID'); if (!pid) return null;
+    return {
+      partnerID:    pid,
+      name:         g('Program or Service'),
+      category:     g('Category'),
+      description:  g('Description'),
+      link:         g('Link'),
+      seasonal:     normalizeKey(g('Seasonal'))==='yes',
+      lastVerified: g('Last Verified'),
+    };
+  }).filter(Boolean);
+}
+
+function parseTemplates(rows) {
+  const FM = { bulkremindersubject:'bulkSubject', bulkreminderbody:'bulkBody',
+               individualremindersubject:'individualSubject', individualreminderbody:'individualBody' };
+  const hi = findHeaderRow(rows,'Field'); if (hi===-1) return {...FALLBACK_TEMPLATES};
+  const hm = makeHeaderMap(rows[hi]);
+  const out = {...FALLBACK_TEMPLATES};
+  rows.slice(hi+1).forEach(row => {
+    const f = normalizeKey(getField(row,hm,'Field'));
+    const t = getField(row,hm,'Text');
+    if (FM[f] && t) out[FM[f]] = t;
+  });
+  return out;
+}
+
+function parseDropdowns(rows) {
+  const hi = findHeaderRow(rows,'Focus Areas'); if (hi===-1) return [...FALLBACK_FOCUS_AREAS];
+  const hm = makeHeaderMap(rows[hi]);
+  const col = hm[normalizeKey('Focus Areas')]; if (col===undefined) return [...FALLBACK_FOCUS_AREAS];
+  const areas = rows.slice(hi+1).map(r=>String(r[col]||'').trim()).filter(Boolean);
+  return areas.length ? areas : [...FALLBACK_FOCUS_AREAS];
+}
+
+function parseReminderLog(rows) {
+  const hi = findHeaderRow(rows,'Timestamp'); if (hi===-1) return {};
+  const hm = makeHeaderMap(rows[hi]);
+  const out = {};
+  rows.slice(hi+1).forEach(row => {
+    const ts=getField(row,hm,'Timestamp'), org=getField(row,hm,'Organization');
+    if (org && ts && (!out[org]||ts>out[org])) out[org]=ts;
+  });
+  return out;
+}
+
+/* ════════════════════════════════════════════════════════
+   DATA LOAD
+   ════════════════════════════════════════════════════════ */
+let ALL_PARTNERS=[], TEMPLATES={...FALLBACK_TEMPLATES}, FOCUS_AREAS=[...FALLBACK_FOCUS_AREAS];
+
+async function loadData() {
+  const [pR,cR,prR,tR,dR,lR] = await Promise.all([
+    fetchCsv(CONFIG.GIDS.partners), fetchCsv(CONFIG.GIDS.contacts),
+    fetchCsv(CONFIG.GIDS.programs), fetchCsv(CONFIG.GIDS.emailTemplates),
+    fetchCsv(CONFIG.GIDS.dropdowns), fetchCsv(CONFIG.GIDS.reminderLog),
+  ]);
+  const partners  = parsePartners(pR);
+  const contacts  = parseContacts(cR);
+  const programs  = parsePrograms(prR);
+  const lastSent  = parseReminderLog(lR);
+
+  contacts.forEach(c  => { if (!partners.find(p=>p.partnerID===c.partnerID))  console.warn('Contact unmatched:',c.partnerID,c.name); });
+  programs.forEach(pr => { if (!partners.find(p=>p.partnerID===pr.partnerID)) console.warn('Program unmatched:',pr.partnerID,pr.name); });
+
+  partners.forEach(p => {
+    p.contacts   = contacts.filter(c  => c.partnerID  === p.partnerID);
+    p.programs   = programs.filter(pr => pr.partnerID === p.partnerID);
+    p.recipients = p.contacts.filter(c => c.email && c.receivesReminders);
+    p.lastReminderSent = lastSent[p.name] || null;
+  });
+
+  return { partners, templates:parseTemplates(tR), focusAreas:parseDropdowns(dR) };
+}
+
+/* ════════════════════════════════════════════════════════
+   RENDER GRID
+   ════════════════════════════════════════════════════════ */
+function renderFocusFilter(areas) {
+  const sel = document.getElementById('filter-focus');
+  areas.forEach(a => { const o=document.createElement('option'); o.value=a; o.textContent=a; sel.appendChild(o); });
+}
+
+function renderGrid(partners) {
+  const grid = document.getElementById('partner-grid');
+  if (!partners.length) { grid.innerHTML='<p class="no-results">No partners match your search.</p>'; return; }
+  grid.innerHTML = partners.map(p => {
+    const color = faColor(p.focusAreas);
+    const initials = orgInitials(p.name);
+    const isComingSoon = p.status.toLowerCase()==='coming soon';
+    const logo = getPartnerLogo(p.name);
+    const zoom = getLogoZoom(p.name);
+    const zoomStyle = zoom !== 1 ? ` style="transform:scale(${zoom})"` : '';
+    const tileInner = logo
+      ? `<img src="${escapeHtml(logo)}" alt="${escapeHtml(p.name)}" class="tile-img" loading="lazy"${zoomStyle}>`
+      : `<div class="tile-initials" style="background:${color}">${escapeHtml(initials)}</div>`;
+    return `<button class="partner-tile" type="button" role="listitem"
+        data-partner-id="${escapeHtml(p.partnerID)}"
+        data-color="${escapeHtml(color)}"
+        data-initials="${escapeHtml(initials)}"
+        aria-label="View ${escapeHtml(p.name)} details">
+      <div class="tile-logo">${tileInner}</div>
+      <div class="tile-name">${escapeHtml(p.name)}${isComingSoon?'<div class="tile-coming-soon">Coming soon</div>':''}</div>
+    </button>`;
+  }).join('');
+  grid.querySelectorAll('.partner-tile').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const p = ALL_PARTNERS.find(x => x.partnerID === btn.dataset.partnerId);
+      if (p) openPartnerModal(p);
+    });
+    /* logo fallback: if img fails to load, show initials circle */
+    const img = btn.querySelector('.tile-img');
+    if (img) {
+      img.addEventListener('error', function() {
+        this.parentNode.innerHTML = `<div class="tile-initials" style="background:${btn.dataset.color}">${btn.dataset.initials}</div>`;
+      });
+    }
+  });
+}
+
+/* ════════════════════════════════════════════════════════
+   PARTNER MODAL
+   ════════════════════════════════════════════════════════ */
+function openPartnerModal(partner) {
+  // Banner color
+  document.getElementById('modal-banner').style.background = faColor(partner.focusAreas);
+
+  // Head
+  document.getElementById('modal-partner-name').textContent = partner.name;
+  const parentEl = document.getElementById('modal-parent-org');
+  parentEl.textContent = partner.parentOrg ? `Operated by ${partner.parentOrg}` : '';
+  parentEl.style.display = partner.parentOrg ? '' : 'none';
+
+  // Tags — cleared from head; rendered at bottom of body instead
+  document.getElementById('modal-tags').innerHTML = '';
+  const comingSoonTag = partner.status.toLowerCase()==='coming soon'
+    ? '<span class="modal-tag modal-tag-coming-soon">Coming soon</span>' : '';
+  const tagsHtml = partner.focusAreas.map(a =>
+    `<span class="modal-tag ${faClass(a)}">${escapeHtml(a)}</span>`
+  ).join('') + comingSoonTag;
+
+  // Quick facts (suite + phone near top)
+  const quickEl = document.getElementById('modal-quick');
+  const quickItems = [];
+  quickItems.push(`<div class="modal-quick-item">${ICONS.location}<span><strong>Suite</strong> ${partner.suite ? escapeHtml(partner.suite) : '&mdash;'}</span></div>`);
+  if (partner.phone) quickItems.push(`<div class="modal-quick-item">${ICONS.phone}<span>${escapeHtml(partner.phone)}</span></div>`);
+  if (partner.hours) quickItems.push(`<div class="modal-quick-item">${ICONS.clock}<span>${escapeHtml(partner.hours)}</span></div>`);
+  if (partner.website) quickItems.push(`<div class="modal-quick-item">${ICONS.globe}<a href="${escapeHtml(partner.website)}" target="_blank" rel="noopener">Visit the website</a></div>`);
+  quickEl.innerHTML = quickItems.join('');
+  quickEl.style.display = '';
+
+  // Body
+  const bodyEl = document.getElementById('modal-body');
+  let html = '';
+
+  if (partner.about) {
+    html += `<div class="section-head">About</div><div class="section-body preline">${richAutoLink(partner.about)}</div>`;
+  }
+  if (partner.whoTheyServe) {
+    html += `<div class="section-head">Who They Serve</div><div class="section-body">${autoLink(partner.whoTheyServe)}</div>`;
+  }
+
+  // Programs (collapsible)
+  if (partner.programs.length) {
+    html += buildProgramsSection(partner.programs);
+  }
+
+  if (partner.howToRefer) {
+    html += `<div class="section-head">How to Refer</div><div class="section-body preline">${richAutoLink(partner.howToRefer)}</div>`;
+  }
+  if (partner.locationNotes) {
+    html += `<div class="section-head">Location Notes</div><div class="section-body preline">${richAutoLink(partner.locationNotes)}</div>`;
+  }
+
+  // Links (social only — website moved to quick-facts row)
+  const links = [];
+  partner.socialMedia.forEach(u => links.push(urlInfo(u)));
+  if (links.length) {
+    html += `<div class="section-head">Links</div><div class="links-list">` +
+      links.map(l => `<div class="link-item">${ICONS[l.icon]||ICONS.globe}<a href="${escapeHtml(l.url)}" target="_blank" rel="noopener">${escapeHtml(l.name)}</a></div>`).join('') +
+      `</div>`;
+  }
+
+  // Contacts — single flat list, no Referral grouping
+  const allContacts = partner.contacts.filter(c => {
+    const t = normalizeKey(c.contactType);
+    return t === 'organization' || t === 'department';
+  });
+  if (allContacts.length) {
+    html += `<div class="section-head">Contacts</div>
+      <div class="contacts-group org-contacts">${allContacts.map(renderContactItem).join('')}</div>`;
+  }
+
+  // Focus area tags at the bottom
+  if (tagsHtml) {
+    html += `<div class="section-head">Focus Areas</div><div class="modal-tags modal-tags-bottom">${tagsHtml}</div>`;
+  }
+
+  bodyEl.innerHTML = html;
+
+  // Wire up programs toggle after inserting HTML
+  const toggleBtn = bodyEl.querySelector('.programs-toggle-btn');
+  const listWrap  = bodyEl.querySelector('.programs-list-wrap');
+  if (toggleBtn && listWrap) {
+    // Start open with height:auto — no explicit height needed initially
+    toggleBtn.addEventListener('click', () => {
+      const open = toggleBtn.getAttribute('aria-expanded') === 'true';
+      toggleBtn.setAttribute('aria-expanded', String(!open));
+      if (open) {
+        // Closing: pin to explicit px first, then two rAFs so browser paints
+        // before we animate to 0 (fixes first-click miss)
+        listWrap.style.height = listWrap.scrollHeight + 'px';
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => { listWrap.style.height = '0'; });
+        });
+      } else {
+        // Opening: measure content height while collapsed, animate up
+        listWrap.style.height = listWrap.scrollHeight + 'px';
+        listWrap.addEventListener('transitionend', function onEnd() {
+          listWrap.style.height = 'auto';
+          listWrap.removeEventListener('transitionend', onEnd);
+        }, { once: true });
+      }
+    });
+  }
+
+  // Footer
+  const hasRecipient = partner.recipients.length > 0;
+  const footEl = document.getElementById('modal-footer');
+  footEl.innerHTML = `
+    <button class="btn-remind" type="button" id="modal-remind-btn"
+      ${!hasRecipient ? 'disabled title="No contact email on file"' : ''}>
+      Send Reminder
+    </button>
+    ${partner.lastReminderSent ? `<span class="last-reminder">Last reminder: ${escapeHtml(partner.lastReminderSent)}</span>` : ''}
+    ${partner.lastVerified     ? `<span class="last-verified">Last verified: ${escapeHtml(partner.lastVerified)}</span>` : ''}`;
+
+  if (hasRecipient) {
+    document.getElementById('modal-remind-btn').addEventListener('click', () => sendIndividualReminder(partner));
+  }
+
+  document.getElementById('modal-partner').classList.add('open');
+  document.getElementById('modal-partner').scrollTop = 0;
+}
+
+function buildProgramsSection(programs) {
+  // Group by category. Suppress generic catch-all category headers.
+  const GENERIC = ['programs and services','programs','services'];
+  const grouped = {};
+  programs.forEach(pr => {
+    const cat = (pr.category && !GENERIC.includes(pr.category.trim().toLowerCase())) ? pr.category.trim() : '';
+    if (!grouped[cat]) grouped[cat] = [];
+    grouped[cat].push(pr);
+  });
+  const keys = Object.keys(grouped);
+  const showCategories = keys.some(k => k !== '');
+
+  let inner = '';
+  keys.forEach(cat => {
+    if (showCategories && cat) {
+      inner += `<div class="program-category-head">${escapeHtml(cat)}</div>`;
+    }
+    grouped[cat].forEach(pr => {
+      const seasonBadge = pr.seasonal ? '<span class="badge-seasonal">Seasonal</span>' : '';
+      const descHtml = pr.description
+        ? `<div class="program-desc preline">${richAutoLink(pr.description)}${pr.link
+            ? ` <a href="${escapeHtml(pr.link)}" target="_blank" rel="noopener">Learn more</a>` : ''}</div>`
+        : (pr.link ? `<div class="program-desc"><a href="${escapeHtml(pr.link)}" target="_blank" rel="noopener">Learn more</a></div>` : '');
+      inner += `<div class="program-item">
+        <div class="program-name">${escapeHtml(pr.name)}${seasonBadge}</div>
+        ${descHtml}
+      </div>`;
+    });
+  });
+
+  return `<button class="programs-toggle-btn" type="button" aria-expanded="true">
+    Programs and Services
+    <svg class="chevron-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+  </button>
+  <div class="programs-list-wrap">${inner}</div>`;
+}
+
+function renderContactItem(c) {
+  const isDept = normalizeKey(c.contactType) === 'department';
+  const nameHtml = escapeHtml(c.name) + (isDept ? ' <span class="dept-inline">(department)</span>' : '');
+  const emailHtml = c.email ? `<a href="mailto:${escapeHtml(c.email)}">${escapeHtml(c.email)}</a>` : '';
+  const phoneHtml = c.phone ? `<a href="tel:${escapeHtml(c.phone)}">${escapeHtml(c.phone)}</a>` : '';
+  const detail = [emailHtml, phoneHtml].filter(Boolean).join(' &middot; ');
+  return `<div class="contact-item">
+    <div class="contact-name">${nameHtml}</div>
+    ${c.title ? `<div class="contact-title">${escapeHtml(c.title)}</div>` : ''}
+    ${detail ? `<div class="contact-detail">${detail}</div>` : ''}
+  </div>`;
+}
+
+/* ════════════════════════════════════════════════════════
+   SEARCH + FILTER
+   ════════════════════════════════════════════════════════ */
+function applyFilters() {
+  const q    = document.getElementById('search-input').value.trim();
+  const area = document.getElementById('filter-focus').value;
+  const visible = ALL_PARTNERS.filter(p => {
+    const s = p.status.toLowerCase();
+    if (s!=='active' && s!=='coming soon') return false;
+    if (area && !p.focusAreas.some(f=>f.toLowerCase()===area.toLowerCase())) return false;
+    if (q) {
+      const ql = q.toLowerCase();
+      return p.name.toLowerCase().includes(ql) ||
+             p.programs.some(pr=>pr.name.toLowerCase().includes(ql));
+    }
+    return true;
+  });
+  renderGrid(visible);
+  const total = ALL_PARTNERS.filter(p=>{ const s=p.status.toLowerCase(); return s==='active'||s==='coming soon'; }).length;
+  document.getElementById('result-count').textContent = `Showing ${visible.length} of ${total}`;
+}
+
+/* ════════════════════════════════════════════════════════
+   REMINDERS
+   ════════════════════════════════════════════════════════ */
+function promptSenderName() {
+  const n = window.prompt('Your name (for the email sign-off):');
+  return n===null ? null : (n.trim() || 'Amplify GR staff');
+}
+function buildMailto({toList,bccList,subject,body}) {
+  const to  = (toList ||[]).join(',');
+  const bcc = (bccList||[]).join(',');
+  let url = 'mailto:' + encodeURIComponent(to);
+  const p = [];
+  if (bcc)     p.push('bcc='+encodeURIComponent(bcc));
+  if (subject) p.push('subject='+encodeURIComponent(subject));
+  if (body)    p.push('body='+encodeURIComponent(body));
+  if (p.length) url += '?'+p.join('&');
+  return url;
+}
+function openMailto(url, display) {
+  if (url.length > 1800) { showMailtoModal(display); return; }
+  window.location.href = url;
+}
+function showMailtoModal({recipients,subject,body}) {
+  document.getElementById('mailto-to').textContent      = recipients.join(', ');
+  document.getElementById('mailto-subject').textContent = subject;
+  document.getElementById('mailto-body').value          = body;
+  document.getElementById('modal-mailto').classList.add('open');
+}
+function showMissingModal(missing, withCount) {
+  return new Promise(resolve => {
+    document.getElementById('modal-missing-desc').textContent =
+      `${missing.length} organization${missing.length===1?'':'s'} ${missing.length===1?'has':'have'} no contact email on file and will not get this reminder. Send to the other ${withCount}?`;
+    document.getElementById('modal-missing-list').innerHTML = missing.map(n=>`<li>${escapeHtml(n)}</li>`).join('');
+    document.getElementById('modal-missing').classList.add('open');
+    const cancel = document.getElementById('modal-missing-cancel');
+    const cont   = document.getElementById('modal-missing-continue');
+    const cleanup = () => {
+      document.getElementById('modal-missing').classList.remove('open');
+      cancel.removeEventListener('click',onNo);
+      cont.removeEventListener('click',onYes);
+    };
+    function onNo()  { cleanup(); resolve(false); }
+    function onYes() { cleanup(); resolve(true);  }
+    cancel.addEventListener('click',onNo);
+    cont.addEventListener('click',onYes);
+  });
+}
+function logSend(sender,type,orgs) {
+  if (!CONFIG.APPS_SCRIPT_URL) return;
+  fetch(CONFIG.APPS_SCRIPT_URL,{method:'POST',mode:'no-cors',
+    headers:{'Content-Type':'text/plain;charset=utf-8'},
+    body:JSON.stringify({sender,type,orgs,timestamp:new Date().toISOString()})
+  }).catch(e=>console.warn('Log failed:',e));
+}
+async function sendBulkReminder() {
+  const active = ALL_PARTNERS.filter(p=>p.status.toLowerCase()==='active');
+  const withR  = active.filter(p=>p.recipients.length>0);
+  const noR    = active.filter(p=>p.recipients.length===0);
+  if (!withR.length) { alert('No partners have a contact email on file yet.'); return; }
+  if (noR.length) { if (!await showMissingModal(noR.map(p=>p.name),withR.length)) return; }
+  else if (!window.confirm(`Send reminder to all ${withR.length} partner organizations?`)) return;
+  const sender = promptSenderName(); if (sender===null) return;
+  const bccList = withR.flatMap(p=>p.recipients.map(c=>c.email));
+  const subject = fillTemplate(TEMPLATES.bulkSubject,{directoryUrl:CONFIG.DIRECTORY_URL,senderName:sender});
+  const body    = fillTemplate(TEMPLATES.bulkBody,   {directoryUrl:CONFIG.DIRECTORY_URL,senderName:sender});
+  openMailto(buildMailto({bccList,subject,body}),{recipients:bccList,subject,body});
+  logSend(sender,'bulk',withR.map(p=>({name:p.name,contactEmail:p.recipients.map(c=>c.email).join(', ')})));
+}
+function sendIndividualReminder(partner) {
+  if (!partner.recipients.length) return;
+  const sender = promptSenderName(); if (sender===null) return;
+  const toList  = partner.recipients.map(c=>c.email);
+  const subject = fillTemplate(TEMPLATES.individualSubject,{orgName:partner.name,directoryUrl:CONFIG.DIRECTORY_URL,senderName:sender});
+  const body    = fillTemplate(TEMPLATES.individualBody,   {orgName:partner.name,directoryUrl:CONFIG.DIRECTORY_URL,senderName:sender});
+  openMailto(buildMailto({toList,subject,body}),{recipients:toList,subject,body});
+  logSend(sender,'individual',[{name:partner.name,contactEmail:toList.join(', ')}]);
+}
+
+/* ════════════════════════════════════════════════════════
+   INIT
+   ════════════════════════════════════════════════════════ */
+async function init() {
+  const statusEl = document.getElementById('status-msg');
+  try {
+    const {partners,templates,focusAreas} = await loadData();
+    ALL_PARTNERS = partners; TEMPLATES = templates; FOCUS_AREAS = focusAreas;
+    renderFocusFilter(focusAreas);
+    statusEl.remove();
+    applyFilters();
+    document.getElementById('search-input').addEventListener('input',applyFilters);
+    document.getElementById('filter-focus').addEventListener('change',applyFilters);
+    document.getElementById('btn-clear').addEventListener('click',()=>{
+      document.getElementById('search-input').value='';
+      document.getElementById('filter-focus').value='';
+      applyFilters();
+    });
+    document.getElementById('btn-bulk-remind').addEventListener('click',sendBulkReminder);
+    document.getElementById('modal-partner-close').addEventListener('click',()=>{
+      document.getElementById('modal-partner').classList.remove('open');
+    });
+    document.getElementById('modal-mailto-close').addEventListener('click',()=>{
+      document.getElementById('modal-mailto').classList.remove('open');
+    });
+    document.querySelectorAll('.btn-copy').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        const src = document.getElementById(btn.dataset.copy);
+        const text = src.tagName==='TEXTAREA' ? src.value : src.textContent;
+        navigator.clipboard.writeText(text).then(()=>{
+          const orig=btn.textContent; btn.textContent='Copied!';
+          setTimeout(()=>{btn.textContent=orig;},1800);
+        });
+      });
+    });
+    document.querySelectorAll('.modal-overlay').forEach(o=>{
+      o.addEventListener('click',e=>{ if(e.target===o) o.classList.remove('open'); });
+    });
+    document.addEventListener('keydown',e=>{
+      if(e.key==='Escape') document.querySelectorAll('.modal-overlay.open').forEach(m=>m.classList.remove('open'));
+    });
+  } catch(err) {
+    console.error(err);
+    statusEl.innerHTML = `<p>Could not load the directory. Make sure each Google Sheet tab is published to the web (File &gt; Share &gt; Publish to web) and try again.</p>
+      <p style="margin-top:8px;font-size:0.85rem;color:var(--muted)">${escapeHtml(String(err))}</p>`;
+  }
+}
+document.addEventListener('DOMContentLoaded',init);
+</script>
+</body>
+</html>
